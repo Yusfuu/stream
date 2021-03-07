@@ -1,0 +1,228 @@
+/* src : https://codemyui.com/video-preview-button-with-expand-on-hover-and-full-screen-on-click/ */
+body {
+  overflow: hidden;
+}
+
+.wrapper {
+  --color: #1f242d;
+  --color-invert: #ffffff;
+  --clip-path: circle(15px at left);
+  --clip-path-hover: circle(70px at left);
+  --clip-path-clicked: circle(100vw at left);
+  --duration: 0.4s;
+  --timing-function: ease;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+}
+
+.wrapper .video {
+  height: 100vh;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-left: 15px;
+  -webkit-clip-path: var(--clip-path);
+  clip-path: var(--clip-path);
+  -webkit-transition: -webkit-clip-path var(--duration) var(--timing-function);
+  transition: -webkit-clip-path var(--duration) var(--timing-function);
+  transition: clip-path var(--duration) var(--timing-function);
+  transition: clip-path var(--duration) var(--timing-function), -webkit-clip-path var(--duration) var(--timing-function);
+}
+
+.wrapper .video video {
+  position: fixed;
+  background: #c4cbde;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.wrapper .text {
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  opacity: var(--opacity, 1);
+  -webkit-transition: opacity 0.3s var(--timing-function) 0.2s;
+  transition: opacity 0.3s var(--timing-function) 0.2s;
+}
+
+.wrapper .text::before, .wrapper .text::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -1px;
+  right: 25px;
+  height: 0;
+}
+
+.wrapper .text::before {
+  -webkit-box-shadow: 26px 0 0 1px var(--color);
+  box-shadow: 26px 0 0 1px var(--color);
+  right: var(--r, 100%);
+  opacity: var(--opacity, 0);
+  -webkit-transition: right 0.5s ease-in, opacity 0.1s linear;
+  transition: right 0.5s ease-in, opacity 0.1s linear;
+}
+
+.wrapper .text::after {
+  -webkit-box-shadow: 26px 0 0 1px var(--color-invert);
+  box-shadow: 26px 0 0 1px var(--color-invert);
+  -webkit-clip-path: var(--clip-path);
+  clip-path: var(--clip-path);
+  -webkit-transition: -webkit-clip-path var(--duration) var(--timing-function);
+  transition: -webkit-clip-path var(--duration) var(--timing-function);
+  transition: clip-path var(--duration) var(--timing-function);
+  transition: clip-path var(--duration) var(--timing-function), -webkit-clip-path var(--duration) var(--timing-function);
+}
+
+.wrapper .text>span::before, .wrapper .text>span::after {
+  content: attr(data-text);
+  padding-left: 26px;
+}
+
+.wrapper .text>span::before {
+  color: var(--color);
+}
+
+.wrapper .text>span::after {
+  color: var(--color-invert);
+  -webkit-clip-path: var(--clip-path);
+  clip-path: var(--clip-path);
+  -webkit-transition: -webkit-clip-path var(--duration) var(--timing-function);
+  transition: -webkit-clip-path var(--duration) var(--timing-function);
+  transition: clip-path var(--duration) var(--timing-function);
+  transition: clip-path var(--duration) var(--timing-function), -webkit-clip-path var(--duration) var(--timing-function);
+  position: absolute;
+  left: 0;
+}
+
+.wrapper input {
+  width: 220px;
+  height: 40px;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-radius: 40px;
+  z-index: 2;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.wrapper input:focus {
+  outline: 0;
+}
+
+.wrapper input:hover~.video {
+  -webkit-clip-path: var(--clip-path-hover);
+  clip-path: var(--clip-path-hover);
+}
+
+.wrapper input:hover~.text::before {
+  --r: 25px;
+  --opacity: 1;
+}
+
+.wrapper input:hover~.text::after {
+  -webkit-clip-path: var(--clip-path-hover);
+  clip-path: var(--clip-path-hover);
+}
+
+.wrapper input:hover~.text>span::after {
+  -webkit-clip-path: var(--clip-path-hover);
+  clip-path: var(--clip-path-hover);
+}
+
+.wrapper input:checked {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+
+.wrapper input:checked~.video {
+  -webkit-clip-path: var(--clip-path-clicked);
+  clip-path: var(--clip-path-clicked);
+}
+
+.wrapper input:checked~.text {
+  --opacity: 0;
+  -webkit-transition: opacity 0.3s var(--timing-function);
+  transition: opacity 0.3s var(--timing-function);
+}
+
+.wrapper input:checked~.text::after {
+  -webkit-clip-path: var(--clip-path-clicked);
+  clip-path: var(--clip-path-clicked);
+}
+
+.wrapper input:checked~.text>span::after {
+  -webkit-clip-path: var(--clip-path-clicked);
+  clip-path: var(--clip-path-clicked);
+}
+
+body {
+  background: #e8ebf3;
+  height: 100vh;
+  font: 400 16px "Poppins", sans-serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+body .socials {
+  position: fixed;
+  display: block;
+  left: 20px;
+  bottom: 20px;
+  z-index: 9999;
+}
+
+body .socials>a {
+  display: block;
+  width: 30px;
+  opacity: 0.2;
+  -webkit-transform: scale(var(--scale, 0.8));
+  transform: scale(var(--scale, 0.8));
+  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.38, -0.12, 0.24, 1.91);
+  transition: -webkit-transform 0.3s cubic-bezier(0.38, -0.12, 0.24, 1.91);
+  transition: transform 0.3s cubic-bezier(0.38, -0.12, 0.24, 1.91);
+  transition: transform 0.3s cubic-bezier(0.38, -0.12, 0.24, 1.91), -webkit-transform 0.3s cubic-bezier(0.38, -0.12, 0.24, 1.91);
+}
+
+body .socials>a:hover {
+  --scale: 1;
+}
+
+/*# sourceMappingURL=style.css.map */

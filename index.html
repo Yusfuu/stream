@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <title>stream & snap</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <input type="checkbox">
+    <div class="video">
+      <video id="video"></video>
+      <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+    </div>
+    <div class="text">
+      <span data-text="Watch the stream"></span>
+    </div>
+  </div>
+
+
+</body>
+<script>
+  // open console and call snap() function to get snapchot of stream
+
+  let video = document.querySelector('#video');
+  let canvas = document.querySelector('#canvas');
+
+  async function stream() {
+    video.srcObject = await navigator.mediaDevices.getUserMedia({ video: true });
+    video.play();
+  }
+
+  function snap() {
+    let context = canvas.getContext('2d');
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    let link = document.createElement('a');
+    link.download = 'download';
+    link.href = canvas.toDataURL();
+    link.click();
+    link.delete;
+  }
+
+  stream();
+
+
+</script>
+
+</html>
